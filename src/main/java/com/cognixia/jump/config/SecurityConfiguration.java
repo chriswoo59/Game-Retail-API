@@ -41,6 +41,8 @@ public class SecurityConfiguration {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/api/users").permitAll()	// Anyone can create a new user
 			.antMatchers("/authenticate").permitAll()				// Anyone can create a JWT without needing a JWT first
+			.antMatchers(HttpMethod.GET, "/api/orders").hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/api/{user_id}/{game_id}").hasRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 			.anyRequest().authenticated() 							// The other requests require a user account to access
 			.and()

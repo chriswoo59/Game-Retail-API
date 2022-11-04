@@ -30,7 +30,7 @@ public class GameService {
 			repo.delete(found.get());;
 			return found.get();
 		}
-		throw new ResourceNotFoundException("User with id: " + id + " not found.");
+		throw new ResourceNotFoundException("Game", id);
 	}
 
 }

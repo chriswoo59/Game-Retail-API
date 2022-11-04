@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
 	private String password;
 
 	@Column(nullable = false)
+	@Email
 	private String email;
 
 	@Column(nullable = false)

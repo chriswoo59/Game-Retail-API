@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "order_table")
@@ -25,6 +27,16 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("orders")
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "game_id")
+	@JsonIgnoreProperties("orders")
+	private Game game;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
@@ -33,25 +45,19 @@ public class Order implements Serializable {
 	@Column(nullable = false)
 	private int qty;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name = "game_id")
-	private Game game;
 
 	public Order() {
 
 	}
 
-	public Order(Long id, Date order_date, int qty, User user, Game game) {
+	public Order(Long id, User user, Game game, Date order_date, int qty) {
 		super();
 		this.id = id;
-		this.order_date = order_date;
-		this.qty = qty;
 		this.user = user;
 		this.game = game;
+		this.order_date = order_date;
+		this.qty = qty;
+		
 	}
 
 	public Long getId() {
@@ -60,6 +66,22 @@ public class Order implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 
 	public Date getOrder_date() {
@@ -78,20 +100,6 @@ public class Order implements Serializable {
 		this.qty = qty;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
+	
 
 }
