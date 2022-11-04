@@ -39,9 +39,9 @@ public class SecurityConfiguration {
 
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/api/user").permitAll()	// Anyone can create a new user
+			.antMatchers(HttpMethod.POST, "/api/users").permitAll()	// Anyone can create a new user
 			.antMatchers("/authenticate").permitAll()				// Anyone can create a JWT without needing a JWT first
-			.antMatchers(HttpMethod.DELETE, "/api/user/{id}").hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 			.anyRequest().authenticated() 							// The other requests require a user account to access
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // Tells Spring security NOT to create sessions/session tokens

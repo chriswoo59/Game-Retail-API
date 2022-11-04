@@ -2,6 +2,8 @@ package com.cognixia.jump.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User implements Serializable {
@@ -22,6 +29,7 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Incrementation will use auto-increment
+	@Column(name = "user_id")
 	private Long id;
 
 	@Column(unique = true, nullable = false)
@@ -32,8 +40,9 @@ public class User implements Serializable {
 
 	@Column(nullable = false)
 	private String email;
-	
+
 	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dob;
 
 	// Will store the role as a string in database
@@ -42,12 +51,17 @@ public class User implements Serializable {
 
 	@Column(columnDefinition = "boolean default true")
 	private boolean enabled;
-	
+
+	@OneToMany(mappedBy = "user", targetEntity = Order.class)
+	@JsonIgnoreProperties("user")
+	private Set<Order> orders = new HashSet<>();
+
 	public User() {
-		
+
 	}
 
-	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled) {
+	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled,
+			Set<Order> orders) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -56,6 +70,7 @@ public class User implements Serializable {
 		this.dob = dob;
 		this.role = role;
 		this.enabled = enabled;
+		this.orders = orders;
 	}
 
 	public Long getId() {
@@ -114,9 +129,17 @@ public class User implements Serializable {
 		this.enabled = enabled;
 	}
 
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", dob="
-				+ dob + ", role=" + role + ", enabled=" + enabled + "]";
+				+ dob + ", role=" + role + ", enabled=" + enabled + ", orders=" + orders + "]";
 	}
 }
