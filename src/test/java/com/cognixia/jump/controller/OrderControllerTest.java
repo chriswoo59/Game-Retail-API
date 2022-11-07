@@ -100,14 +100,14 @@ class OrderControllerTest {
 		
 		Order order = new Order();
 		
-		when(service.createOrder(Mockito.anyString(), Mockito.anyLong(), Mockito.anyInt())).thenReturn(order);
+		when(service.createOrder(Mockito.anyLong(), Mockito.anyInt())).thenReturn(order);
 		
 		mockMvc.perform(post(uri, 1L, 1).with(csrf()))
 			.andDo(print())
 			.andExpect(status().isCreated())
 			.andExpect(jsonPath("$.id").value(order.getId()));
 		
-		verify(service, times(1)).createOrder(Mockito.anyString(), Mockito.anyLong(), Mockito.anyInt());
+		verify(service, times(1)).createOrder(Mockito.anyLong(), Mockito.anyInt());
 		verifyNoMoreInteractions(service);
 	}
 

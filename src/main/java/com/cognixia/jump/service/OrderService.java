@@ -29,8 +29,10 @@ public class OrderService {
 	@Autowired
 	GameRepository gameRepo;
 
-	public Order createOrder(String username, Long game_id, int qty)
+	public Order createOrder(Long game_id, int qty)
 			throws ResourceNotFoundException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
 		
 		Optional<User> user = userRepo.findByUsername(username);
 		Optional<Game> game = gameRepo.findById(game_id);

@@ -39,8 +39,7 @@ public class OrderController {
 	
 	@PostMapping("/{game_id}/{qty}")
 	public ResponseEntity<?> createOrder(@PathVariable Long game_id, @PathVariable int qty) throws ResourceNotFoundException {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Order created = service.createOrder(auth.getName(), game_id, qty);
+		Order created = service.createOrder(game_id, qty);
 		return ResponseEntity.status(HttpStatus.CREATED).body(created);
 	}
 	
