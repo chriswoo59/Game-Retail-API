@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +46,7 @@ public class Game implements Serializable {
 	@Column(nullable = false)
 	private double price;
 
-	@OneToMany(mappedBy = "game", targetEntity = Order.class)
+	@OneToMany(mappedBy = "game", targetEntity = Order.class, fetch= FetchType.EAGER)
 	@JsonIgnoreProperties("game")
 	private Set<Order> orders = new HashSet<>();
 

@@ -38,12 +38,14 @@ public class SecurityConfiguration {
 
 		http.csrf().disable()
 			.authorizeRequests()
+			// ANY USER
 			.antMatchers("/swagger-ui/**").permitAll()		// Anyone can view docs
 			.antMatchers("/v3/**").permitAll()
 			.antMatchers("/docs").permitAll()
-			// USERS
 			.antMatchers(HttpMethod.POST, "/api/users").permitAll()	// Anyone can create a new user
 			.antMatchers("/authenticate").permitAll()				// Anyone can create a JWT without needing a JWT first
+			// ADMIN
+			// USERS
 			.antMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
 			// GAMES
 			.antMatchers(HttpMethod.POST, "/api/games").hasRole("ADMIN")
