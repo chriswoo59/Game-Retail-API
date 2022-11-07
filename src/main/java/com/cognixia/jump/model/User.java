@@ -59,7 +59,14 @@ public class User implements Serializable {
 	private Set<Order> orders = new HashSet<>();
 
 	public User() {
-
+		this.id = -1L;
+		this.username = "username";
+		this.password = "pw123";
+		this.email = "test@email.com";
+		this.dob = new Date();
+		this.role = Role.ROLE_ADMIN;
+		this.enabled = true;
+		this.orders = null;
 	}
 
 	public User(Long id, String username, String password, String email, Date dob, Role role, boolean enabled,
@@ -137,6 +144,10 @@ public class User implements Serializable {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+	
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
 
 	@Override

@@ -23,6 +23,14 @@ public class UserService {
 	public List<User> getUsers() {
 		return repo.findAll();
 	}
+	
+	public User getUserById(Long id) throws ResourceNotFoundException {
+		Optional<User> found = repo.findById(id);
+		if (found.isPresent()) {
+			return found.get();
+		}
+		throw new ResourceNotFoundException("User", id);
+	}
 
 	public User createUser(User user) {
 		user.setId(null);
@@ -41,4 +49,6 @@ public class UserService {
 		}
 		throw new ResourceNotFoundException("User", id);
 	}
+
+	
 }

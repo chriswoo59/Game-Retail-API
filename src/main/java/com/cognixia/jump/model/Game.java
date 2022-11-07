@@ -50,7 +50,14 @@ public class Game implements Serializable {
 	private Set<Order> orders = new HashSet<>();
 
 	public Game() {
-
+		this.id = -1L;
+		this.title = "test";
+		this.release_date = new Date();
+		this.rating = "T";
+		this.genre = "Genre";
+		this.platform = "Platform";
+		this.price = 59.99;
+		this.orders = null;
 	}
 
 	public Game(Long id, String title, Date release_date, String rating, String genre, String platform, double price,
@@ -128,6 +135,10 @@ public class Game implements Serializable {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+	
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
 
 	@Override

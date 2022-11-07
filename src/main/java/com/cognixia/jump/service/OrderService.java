@@ -41,8 +41,12 @@ public class OrderService {
 			throw new ResourceNotFoundException("Game", game_id);
 		}
 
+		
 		Order newOrder = new Order(-1L, user.get(), game.get(), new Date(), qty);
 		repo.save(newOrder);
+		user.get().addOrder(newOrder);
+		game.get().addOrder(newOrder);
+		
 		return newOrder;
 	}
 
@@ -58,6 +62,9 @@ public class OrderService {
 
 		Order newOrder = new Order(-1L, user.get(), game.get(), new Date(), qty);
 		repo.save(newOrder);
+		user.get().addOrder(newOrder);
+		game.get().addOrder(newOrder);
+		
 		return newOrder;
 	}
 

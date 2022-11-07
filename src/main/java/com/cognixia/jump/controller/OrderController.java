@@ -34,7 +34,7 @@ public class OrderController {
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllOrders() {
 		List<Order> orders = service.getAllOrders();
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(orders);
+		return ResponseEntity.status(HttpStatus.OK).body(orders);
 	}
 	
 	@PostMapping("/{game_id}/{qty}")

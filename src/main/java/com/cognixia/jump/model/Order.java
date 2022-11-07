@@ -47,7 +47,11 @@ public class Order implements Serializable {
 
 
 	public Order() {
-
+		this.id = -1L;
+		this.user = new User();
+		this.game = new Game();
+		this.order_date = new Date();
+		this.qty = 1;
 	}
 
 	public Order(Long id, User user, Game game, Date order_date, int qty) {
