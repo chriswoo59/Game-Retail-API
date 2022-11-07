@@ -19,6 +19,10 @@ public class GameService {
 	public List<Game> getGames() {
 		return repo.findAll();
 	}
+	
+	public List<Game> getGamesOnSale() {
+		return repo.findGamesOnSale();
+	}
 
 	public Game createGame(Game game) {
 		return repo.save(game);
@@ -32,5 +36,7 @@ public class GameService {
 		}
 		throw new ResourceNotFoundException("Game", id);
 	}
+
+	
 
 }

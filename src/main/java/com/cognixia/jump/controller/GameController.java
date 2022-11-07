@@ -26,8 +26,14 @@ public class GameController {
 	
 	@GetMapping
 	public ResponseEntity<?> getGames() {
-		List<Game> users = service.getGames();
-		return ResponseEntity.status(HttpStatus.OK).body(users);
+		List<Game> games = service.getGames();
+		return ResponseEntity.status(HttpStatus.OK).body(games);
+	}
+	
+	@GetMapping("/sale")
+	public ResponseEntity<?> getGamesOnSale() {
+		List<Game> gamesOnSale = service.getGamesOnSale();
+		return ResponseEntity.status(HttpStatus.OK).body(gamesOnSale);
 	}
 	
 	@PostMapping
@@ -41,8 +47,8 @@ public class GameController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteGame(@PathVariable Long id) throws ResourceNotFoundException {
-		Game targetUser = service.deleteGame(id);
-		return ResponseEntity.status(HttpStatus.OK).body(targetUser);
+		Game targetGame = service.deleteGame(id);
+		return ResponseEntity.status(HttpStatus.OK).body(targetGame);
 	}
 
 }

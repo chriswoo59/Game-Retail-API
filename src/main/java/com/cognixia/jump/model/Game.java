@@ -44,7 +44,10 @@ public class Game implements Serializable {
 	private String platform;
 
 	@Column(nullable = false)
-	private double price;
+	private Double base_price;
+	
+	@Column
+	private Double sale_price;
 
 	@OneToMany(mappedBy = "game", targetEntity = Order.class, fetch= FetchType.EAGER)
 	@JsonIgnoreProperties("game")
@@ -57,12 +60,15 @@ public class Game implements Serializable {
 		this.rating = "T";
 		this.genre = "Genre";
 		this.platform = "Platform";
-		this.price = 59.99;
+		this.base_price = 59.99;
+		this.sale_price = null;
 		this.orders = null;
 	}
 
-	public Game(Long id, String title, Date release_date, String rating, String genre, String platform, double price,
-			Set<Order> orders) {
+	
+
+	public Game(Long id, String title, Date release_date, String rating, String genre, String platform,
+			Double base_price, Double sale_price, Set<Order> orders) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -70,9 +76,12 @@ public class Game implements Serializable {
 		this.rating = rating;
 		this.genre = genre;
 		this.platform = platform;
-		this.price = price;
+		this.base_price = base_price;
+		this.sale_price = sale_price;
 		this.orders = orders;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -122,12 +131,22 @@ public class Game implements Serializable {
 		this.platform = platform;
 	}
 
-	public double getPrice() {
-		return price;
+	
+
+	public Double getBase_price() {
+		return base_price;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setBase_price(Double base_price) {
+		this.base_price = base_price;
+	}
+
+	public Double getSale_price() {
+		return sale_price;
+	}
+
+	public void setSale_price(Double sale_price) {
+		this.sale_price = sale_price;
 	}
 
 	public Set<Order> getOrders() {
@@ -145,7 +164,8 @@ public class Game implements Serializable {
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", title=" + title + ", release_date=" + release_date + ", rating=" + rating
-				+ ", genre=" + genre + ", platform=" + platform + ", price=" + price + ", orders=" + orders + "]";
+				+ ", genre=" + genre + ", platform=" + platform + ", base_price=" + base_price + ", sale_price="
+				+ sale_price + ", orders=" + orders + "]";
 	}
 
 }
