@@ -27,7 +27,7 @@ public class Game implements Serializable {
 	@Column(name = "game_id")
 	private Long id;
 
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String title;
 
 	@Column(nullable = false)
