@@ -27,6 +27,10 @@ public class GameService {
 	public Game createGame(Game game) {
 		return repo.save(game);
 	}
+	
+	public Game updateGame(Game game) {
+		return repo.save(game);
+	}
 
 	public Game deleteGame(Long id) throws ResourceNotFoundException {
 		Optional<Game> found = repo.findById(id);
@@ -36,6 +40,8 @@ public class GameService {
 		}
 		throw new ResourceNotFoundException("Game", id);
 	}
+
+	
 
 	
 
